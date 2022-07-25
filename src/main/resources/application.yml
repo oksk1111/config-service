@@ -4,8 +4,27 @@ server:
 spring:
   application:
     name: config-service
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+  profiles:
+    active: native    # local profile 사용시
   cloud:
     config:
       server:
+        native:
+          search-locations: file:///C:\\Users\\oksk1\\workspace\\native-file-repo
         git:
-          uri: file:///C:/Users/oksk1/workspace/git-local-repo
+#          uri: file:///C:/Users/oksk1/workspace/git-local-repo
+          uri: https://github.com/oksk1111/spring-cloud-config.git
+#          username: [your username]
+#          password: [your password]
+
+# rabbitmq와 같이 사용시, client 역할로 주면서 요청사항을 받은것을 통보를 해준다고 함
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, busrefresh
